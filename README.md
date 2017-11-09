@@ -1,4 +1,6 @@
 # nginx
+[![](https://images.microbadger.com/badges/version/manuku/nginx.svg)](https://microbadger.com/images/manuku/nginx "Get your own version badge on microbadger.com")
+
 编译[nginx](https://nginx.org/) v1.11.13 源码，编译参数
 ```
 --with-select_module 
