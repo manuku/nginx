@@ -45,6 +45,9 @@ RUN tar xzvf ngx_devel_kit-${NGX_DEVEL_KIT_VERSION}.tar.gz
 # pcre
 RUN wget https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz
 RUN tar xzvf pcre-${PCRE_VERSION}.tar.gz
+RUN cd pcre-${PCRE_VERSION} \
+    && ./configure \
+    && make && make install
 
 # luajit
 RUN wget https://luajit.org/download/LuaJIT-${LUAJIT_VERSION}.tar.gz
