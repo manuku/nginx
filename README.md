@@ -45,3 +45,4 @@
 - [LuaJIT](https://luajit.org/) v2.0.5
 - [lua-upstream-nginx-module](https://github.com/openresty/lua-upstream-nginx-module) v0.07
 - [ngx_http_dyups_module](https://github.com/yzprofile/ngx_http_dyups_module) a5e75737e04ff3e5040a80f5f739171e96c3359c
+- [ngx_cache_purge](https://github.com/FRiCKLE/ngx_cache_purge) v2.3
