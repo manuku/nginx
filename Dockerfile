@@ -25,6 +25,7 @@ RUN apt-get clean \
 ENV LUA_NGINX_MODULE_VERSION 0.10.10
 ENV NGX_DEVEL_KIT_VERSION 0.3.0
 ENV PCRE_VERSION 8.41
+ENV CACHE_VERSION 2.3
 ENV LUAJIT_VERSION 2.0.5
 ENV NGINX_VERSION 1.11.13
 ENV OPENSSL_VERSION 1.0.2m
@@ -47,7 +48,11 @@ RUN wget https://ftp.pcre.org/pub/pcre/pcre-${PCRE_VERSION}.tar.gz
 RUN tar xzvf pcre-${PCRE_VERSION}.tar.gz
 RUN cd pcre-${PCRE_VERSION} \
     && ./configure \
-    && make && make install
+	&& make && make install
+
+# cache
+RUN wget http://labs.frickle.com/files/ngx_cache_purge-${CACHE_VERSION}.tar.gz
+RUN tar xzvf ngx_cache_purge-${CACHE_VERSION}.tar.gz
 
 # luajit
 RUN wget https://luajit.org/download/LuaJIT-${LUAJIT_VERSION}.tar.gz
@@ -136,13 +141,14 @@ RUN cd nginx-${NGINX_VERSION} \
         --with-openssl=../openssl-${OPENSSL_VERSION} \
         --with-openssl-opt=no-nextprotoneg \
         --with-zlib=../zlib-${ZLIB_VERSION} \
-        --with-pcre="../pcre-${PCRE_VERSION}" \
+        --with-pcre=../pcre-${PCRE_VERSION} \
         --with-pcre-jit \
         --with-ld-opt="-Wl,-rpath,/usr/local/lj2/lib" \
         --add-module=../ngx_devel_kit-${NGX_DEVEL_KIT_VERSION} \
         --add-module=../lua-nginx-module-${LUA_NGINX_MODULE_VERSION} \
         --add-module=../lua-upstream-nginx-module-${LUA_UPSTREAM_NGINX_MODULE_VERSION} \
         --add-module=../ngx_http_dyups_module-${NGX_HTTP_DYUPS_MODULE_VERSION} \
+        --add-module=../ngx_cache_purge-${CACHE_VERSION} \
         --with-debug \
     && make -j2 \
     && make install
